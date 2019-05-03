@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class CatgoriesModel {
-    private String categorie;
+    private String category;
 }

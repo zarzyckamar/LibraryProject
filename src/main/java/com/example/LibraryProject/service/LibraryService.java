@@ -2,6 +2,7 @@ package com.example.LibraryProject.service;
 
 import com.example.LibraryProject.model.*;
 import com.example.LibraryProject.modelEndpoint.BookByISBN;
+import com.example.LibraryProject.modelEndpoint.CatgoriesModel;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,21 @@ public class LibraryService {
             }
         return null;
     }
+    public ArrayList<BookByISBN> getBookByCategory(String category, ArrayList<BookByISBN> books)
+    {
+        ArrayList<BookByISBN> listOfFilteredCategoryBooks = new ArrayList<>();
+        for(int t=0; t<books.size(); t++) {
+            if (books.get(t).getCategories() != null) {
+                for (int n = 0; n < books.get(t).getCategories().size(); n++) {
+                    if (category.equals(books.get(t).getCategories().get(n)))
+                        listOfFilteredCategoryBooks.add(books.get(t));
 
+                }
+            }
+            else continue;
+        }
+        return listOfFilteredCategoryBooks;
+    }
     public ArrayList<BookByISBN> creatOutputModel() {
 
         LibraryFromJson libraryFromJson = null;
@@ -39,10 +54,10 @@ public class LibraryService {
         ArrayList<BookByISBN> listofBookByISBNS = new ArrayList<>();
 
         for (int i = 0; i < libraryFromJson.getItems().size(); i++) {
-
+            String isbn13 ="ISBN_13";
             BookByISBN bookByISBN = new BookByISBN();
             for (int n = 0; n < libraryFromJson.getItems().get(i).getVolumeInfo().getIndustryIdentifiers().size(); n++) {
-                if (libraryFromJson.getItems().get(i).getVolumeInfo().getIndustryIdentifiers().get(n).getType().equals("ISBN_13")) {
+                if (libraryFromJson.getItems().get(i).getVolumeInfo().getIndustryIdentifiers().get(n).getType().equals(isbn13)) {
                     bookByISBN.setIsbn(libraryFromJson.getItems().get(i).getVolumeInfo().getIndustryIdentifiers().get(n).getIdentifier());
                 } else {
                     bookByISBN.setIsbn(libraryFromJson.getItems().get(i).getId());

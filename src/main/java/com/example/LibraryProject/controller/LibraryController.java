@@ -25,9 +25,9 @@ public class LibraryController {
     }
 
     @RequestMapping(value = "/byCategory", method = RequestMethod.GET)
-    public BookByISBN getBookByCategory(@RequestParam(name = "category") String category) throws FileNotFoundException {
+    public ArrayList<BookByISBN> getBookByCategory(@RequestParam(name = "category") String category) throws FileNotFoundException {
 
-        return null;
+        return libraryService.getBookByCategory(category, libraryService.creatOutputModel());
     }
 
 }
