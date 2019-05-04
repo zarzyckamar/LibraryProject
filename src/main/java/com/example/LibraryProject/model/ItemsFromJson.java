@@ -12,5 +12,6 @@ public class ItemsFromJson {
     private VolumeInfoFromJson volumeInfo;
     private SaleInfoFromJson saleInfo;
     private AccessInfoFromJson accessInfo;
+    private SearchInfoFromJson searchInfo;
 
 }

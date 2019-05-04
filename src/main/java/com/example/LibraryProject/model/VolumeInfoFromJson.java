@@ -17,16 +17,17 @@ public class VolumeInfoFromJson {
     private int pageCount;
     private String printType;
     private ArrayList<String> categories;
+    private double averageRating;
+    private int ratingsCount;
     private String maturityRating;
     private boolean allowAnonLogging;
     private String contentVersion;
+    private PanelizationSummaryFromJson panelizationSummary;
     private ImageLinksFromJson imageLinks;
     private String language;
     private String previewLink;
     private String infoLink;
     private String canonicalVolumeLink;
-    private SaleInfoFromJson saleInfo;
-    private AccessInfoFromJson accessInfo;
 
 
 }
