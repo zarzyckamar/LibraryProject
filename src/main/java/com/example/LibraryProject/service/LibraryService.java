@@ -67,18 +67,18 @@ public class LibraryService {
             BookByISBN bookByISBN = new BookByISBN();
             bookByISBN.setTitle(libraryFromJson.getItems().get(i).getVolumeInfo().getTitle());
             bookByISBN.setSubtitle(libraryFromJson.getItems().get(i).getVolumeInfo().getSubtitle());
-            if(libraryFromJson.getItems().get(i).getVolumeInfo().getPublishedDate()!=null) {
+            if (libraryFromJson.getItems().get(i).getVolumeInfo().getPublishedDate() != null) {
                 String dateString = libraryFromJson.getItems().get(i).getVolumeInfo().getPublishedDate();
 
                 if (libraryFromJson.getItems().get(i).getVolumeInfo().getPublishedDate().length() > 4) {
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = format.parse(dateString);
-                    long unixTime = (long) date.getTime() / 1000;
+                    long unixTime = (long) date.getTime();
                     bookByISBN.setPublishedDate(unixTime);
                 } else {
                     SimpleDateFormat formatYear = new SimpleDateFormat("YYYY");
                     Date dateYear = formatYear.parse(dateString);
-                    long unixTimeYear = (long) dateYear.getTime() / 1000;
+                    long unixTimeYear = (long) dateYear.getTime();
                     bookByISBN.setPublishedDate(unixTimeYear);
                 }
             }
@@ -124,7 +124,7 @@ public class LibraryService {
         ArrayList<AverageRatingModel> listOfAvarageRating = new ArrayList<>();
         for (int i = 0; i < libraryFromJson.getItems().size(); i++) {
             AverageRatingModel averageRatingModel = new AverageRatingModel();
-            if (libraryFromJson.getItems().get(i).getVolumeInfo().getAuthors() != null){
+            if (libraryFromJson.getItems().get(i).getVolumeInfo().getAuthors() != null) {
                 if (libraryFromJson.getItems().get(i).getVolumeInfo().getAuthors().size() == 1) {
                     averageRatingModel.setAverageRating(libraryFromJson.getItems().get(i).getVolumeInfo().getAverageRating());
                     averageRatingModel.setAuthor(libraryFromJson.getItems().get(i).getVolumeInfo().getAuthors().get(0));
@@ -153,11 +153,11 @@ public class LibraryService {
 
     public ArrayList<AverageRatingModel> getAverageRaitingOfAuthor(ArrayList<AverageRatingModel> list) {
         Collections.sort(list, averageRatingAuthorComparator);
-        for(int i=1; i<list.size();i++){
+        for (int i = 1; i < list.size(); i++) {
 
-            if (list.get(i).getAuthor().equals(list.get(i-1).getAuthor())){
-                list.get(i).setAverageRating((list.get(i).getAverageRating()+list.get(i-1).getAverageRating())/2);
-                list.remove(i-1);
+            if (list.get(i).getAuthor().equals(list.get(i - 1).getAuthor())) {
+                list.get(i).setAverageRating((list.get(i).getAverageRating() + list.get(i - 1).getAverageRating()) / 2);
+                list.remove(i - 1);
             }
         }
         return list;

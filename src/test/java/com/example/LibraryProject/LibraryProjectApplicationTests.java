@@ -4,9 +4,6 @@ import com.example.LibraryProject.model.LibraryFromJson;
 import com.example.LibraryProject.modelEndpoint.BookByISBN;
 import com.example.LibraryProject.service.LibraryService;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import io.restassured.http.ContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,56 +23,56 @@ import static junit.framework.TestCase.*;
 @SpringBootTest
 public class LibraryProjectApplicationTests {
 
-	@Test
-	public void JsonObjectIsNotEmpty() throws FileNotFoundException {
+    @Test
+    public void JsonObjectIsNotEmpty() throws FileNotFoundException {
 
-		Gson gson = new Gson();
-		LibraryFromJson library = gson.fromJson(new FileReader("C:/Users/Admin/IdeaProjects/LibraryProject/books.json"), LibraryFromJson.class);
-		assertFalse(library.equals(null));
-	}
+        Gson gson = new Gson();
+        LibraryFromJson library = gson.fromJson(new FileReader("C:/Users/Admin/IdeaProjects/LibraryProject/books.json"), LibraryFromJson.class);
+        assertFalse(library.equals(null));
+    }
 
-	@Test
-	public void IsNotNullBookWithISBN() throws ParseException {
-		LibraryService libraryService = new LibraryService();
-		assertNotNull(libraryService.getBookByISBN("N1IiAQAAIAAJ", libraryService.creatOutputModel()));
-	}
+    @Test
+    public void IsNotNullBookWithISBN() throws ParseException {
+        LibraryService libraryService = new LibraryService();
+        assertNotNull(libraryService.getBookByISBN("N1IiAQAAIAAJ", libraryService.creatOutputModel()));
+    }
 
-	@Test
-	public void IsCorrectBookWithISBNnr1() throws ParseException {
-		LibraryService libraryService = new LibraryService();
-		BookByISBN bookByISBN = libraryService.getBookByISBN("N1IiAQAAIAAJ", libraryService.creatOutputModel());
-		assertEquals(bookByISBN.getIsbn(), "N1IiAQAAIAAJ");
-	}
+    @Test
+    public void IsCorrectBookWithISBNnr1() throws ParseException {
+        LibraryService libraryService = new LibraryService();
+        BookByISBN bookByISBN = libraryService.getBookByISBN("N1IiAQAAIAAJ", libraryService.creatOutputModel());
+        assertEquals(bookByISBN.getIsbn(), "N1IiAQAAIAAJ");
+    }
 
-	@Test
-	public void IsNotNullComputersCategory() throws ParseException {
-		LibraryService libraryService = new LibraryService();
-		ArrayList<BookByISBN> bookByISBN = libraryService.getBookByCategory("Computers", libraryService.creatOutputModel());
-		assertNotNull(bookByISBN);
-	}
+    @Test
+    public void IsNotNullComputersCategory() throws ParseException {
+        LibraryService libraryService = new LibraryService();
+        ArrayList<BookByISBN> bookByISBN = libraryService.getBookByCategory("Computers", libraryService.creatOutputModel());
+        assertNotNull(bookByISBN);
+    }
 
-	@Test
-	public void pingTest() {
-		given().when().get("/api/all").then().statusCode(200);
-	}
+    @Test
+    public void pingTest() {
+        given().when().get("/api/all").then().statusCode(200);
+    }
 
-	@Test
-	public void verifyTitleOfBook() {
-		given()
-				.when()
-				.get("/api/byISBN?isbn=gJEC2q7DzpQC")
-				.then()
-				.statusCode(200)
-				.body("title", equalTo("The History of Java"));
-	}
+    @Test
+    public void verifyTitleOfBook() {
+        given()
+                .when()
+                .get("/api/byISBN?isbn=gJEC2q7DzpQC")
+                .then()
+                .statusCode(200)
+                .body("title", equalTo("The History of Java"));
+    }
 
-@Test
-	public void verifyPublishedDateOfBook(){
-	given()
-			.when()
-			.get("/api/byISBN?isbn=9780080568782")
-			.then()
-			.statusCode(200)
-			.body("publishedDate", equalTo(1314568800));
-}
+    @Test
+    public void verifyPublishedDateOfBook() {
+        given()
+                .when()
+                .get("/api/byISBN?isbn=9780080568782")
+                .then()
+                .statusCode(200)
+                .body("publishedDate", equalTo(1314568800));
+    }
 }
