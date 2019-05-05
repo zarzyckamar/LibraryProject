@@ -38,8 +38,8 @@ public class LibraryController {
         return libraryService.getBookByCategory(category, libraryService.creatOutputModel());
     }
 
-    @RequestMapping(value="/byAverageRating", method=RequestMethod.GET)
-    public ArrayList<AverageRatingModel> getByAverageRating(){
+    @RequestMapping(value = "/byAverageRating", method = RequestMethod.GET)
+    public ArrayList<AverageRatingModel> getByAverageRating() {
         return libraryService.createListWithAverageRating();
 
     }
