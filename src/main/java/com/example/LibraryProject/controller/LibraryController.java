@@ -38,7 +38,7 @@ public class LibraryController {
     }
 
     @RequestMapping(value="/byAverageRating", method=RequestMethod.GET)
-    public ArrayList<AverageRatingModel> getByAvarageRating(){
+    public ArrayList<AverageRatingModel> getByAverageRating(){
         return libraryService.createListWithAverageRating();
 
     }

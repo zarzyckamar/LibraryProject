@@ -111,8 +111,7 @@ public class LibraryService {
         ArrayList<AverageRatingModel> listOfAvarageRating = new ArrayList<>();
         for (int i = 0; i < libraryFromJson.getItems().size(); i++) {
             AverageRatingModel averageRatingModel = new AverageRatingModel();
-            if (libraryFromJson.getItems().get(i).getVolumeInfo().getAuthors() == null) continue;
-            else {
+            if (libraryFromJson.getItems().get(i).getVolumeInfo().getAuthors() != null){
                 if (libraryFromJson.getItems().get(i).getVolumeInfo().getAuthors().size() == 1) {
                     averageRatingModel.setAverageRating(libraryFromJson.getItems().get(i).getVolumeInfo().getAverageRating());
                     averageRatingModel.setAuthor(libraryFromJson.getItems().get(i).getVolumeInfo().getAuthors().get(0));
