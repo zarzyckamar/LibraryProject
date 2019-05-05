@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 @Service
 public class LibraryService {
@@ -54,7 +57,7 @@ public class LibraryService {
         return libraryFromJson;
     }
 
-    public ArrayList<BookByISBN> creatOutputModel() {
+    public ArrayList<BookByISBN> creatOutputModel() throws ParseException {
 
         LibraryFromJson libraryFromJson = getData();
         ArrayList<BookByISBN> listofBookByISBNS = new ArrayList<>();
@@ -64,10 +67,20 @@ public class LibraryService {
             BookByISBN bookByISBN = new BookByISBN();
             bookByISBN.setTitle(libraryFromJson.getItems().get(i).getVolumeInfo().getTitle());
             bookByISBN.setSubtitle(libraryFromJson.getItems().get(i).getVolumeInfo().getSubtitle());
-            try {
-                bookByISBN.setPublishedDate(Integer.parseInt(libraryFromJson.getItems().get(i).getVolumeInfo().getPublishedDate()));
-            } catch (NumberFormatException e) {
-                continue;
+            if(libraryFromJson.getItems().get(i).getVolumeInfo().getPublishedDate()!=null) {
+                String dateString = libraryFromJson.getItems().get(i).getVolumeInfo().getPublishedDate();
+
+                if (libraryFromJson.getItems().get(i).getVolumeInfo().getPublishedDate().length() > 4) {
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = format.parse(dateString);
+                    long unixTime = (long) date.getTime() / 1000;
+                    bookByISBN.setPublishedDate(unixTime);
+                } else {
+                    SimpleDateFormat formatYear = new SimpleDateFormat("YYYY");
+                    Date dateYear = formatYear.parse(dateString);
+                    long unixTimeYear = (long) dateYear.getTime() / 1000;
+                    bookByISBN.setPublishedDate(unixTimeYear);
+                }
             }
             bookByISBN.setDescription(libraryFromJson.getItems().get(i).getVolumeInfo().getDescription());
             bookByISBN.setPageCount(libraryFromJson.getItems().get(i).getVolumeInfo().getPageCount());

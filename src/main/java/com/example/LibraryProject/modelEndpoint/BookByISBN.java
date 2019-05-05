@@ -9,7 +9,7 @@ public class BookByISBN {
     private String isbn;
     private String title;
     private String subtitle;
-    private int publishedDate;
+    private long publishedDate;
     private String description;
     private int pageCount;
     private String thumbnailUrl;
