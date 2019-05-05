@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 
@@ -27,18 +28,18 @@ public class LibraryController {
     }
 
     @RequestMapping(value = "/byISBN", method = RequestMethod.GET)
-    public BookByISBN getBookByISBN(@RequestParam(name = "isbn") String isbn) throws FileNotFoundException {
+    public BookByISBN getBookByISBN(@RequestParam(name = "isbn") String isbn) throws FileNotFoundException, ParseException {
         return libraryService.getBookByISBN(isbn, libraryService.creatOutputModel());
     }
 
     @RequestMapping(value = "/byCategory", method = RequestMethod.GET)
-    public ArrayList<BookByISBN> getBookByCategory(@RequestParam(name = "category") String category) throws FileNotFoundException {
+    public ArrayList<BookByISBN> getBookByCategory(@RequestParam(name = "category") String category) throws FileNotFoundException, ParseException {
 
         return libraryService.getBookByCategory(category, libraryService.creatOutputModel());
     }
 
     @RequestMapping(value="/byAverageRating", method=RequestMethod.GET)
-    public ArrayList<AverageRatingModel> getByAvarageRating(){
+    public ArrayList<AverageRatingModel> getByAverageRating(){
         return libraryService.createListWithAverageRating();
 
     }
