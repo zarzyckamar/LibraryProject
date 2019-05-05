@@ -17,6 +17,7 @@ import static org.hamcrest.Matchers.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.*;
@@ -34,20 +35,20 @@ public class LibraryProjectApplicationTests {
 	}
 
 	@Test
-	public void IsNotNullBookWithISBN() {
+	public void IsNotNullBookWithISBN() throws ParseException {
 		LibraryService libraryService = new LibraryService();
 		assertNotNull(libraryService.getBookByISBN("N1IiAQAAIAAJ", libraryService.creatOutputModel()));
 	}
 
 	@Test
-	public void IsCorrectBookWithISBNnr1() {
+	public void IsCorrectBookWithISBNnr1() throws ParseException {
 		LibraryService libraryService = new LibraryService();
 		BookByISBN bookByISBN = libraryService.getBookByISBN("N1IiAQAAIAAJ", libraryService.creatOutputModel());
 		assertEquals(bookByISBN.getIsbn(), "N1IiAQAAIAAJ");
 	}
 
 	@Test
-	public void IsNotNullComputersCategory() {
+	public void IsNotNullComputersCategory() throws ParseException {
 		LibraryService libraryService = new LibraryService();
 		ArrayList<BookByISBN> bookByISBN = libraryService.getBookByCategory("Computers", libraryService.creatOutputModel());
 		assertNotNull(bookByISBN);
@@ -68,5 +69,13 @@ public class LibraryProjectApplicationTests {
 				.body("title", equalTo("The History of Java"));
 	}
 
-
+@Test
+	public void verifyPublishedDateOfBook(){
+	given()
+			.when()
+			.get("/api/byISBN?isbn=9780080568782")
+			.then()
+			.statusCode(200)
+			.body("publishedDate", equalTo(1314568800));
+}
 }
