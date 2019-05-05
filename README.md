@@ -1,5 +1,7 @@
-# LibraryProject
+# LibraryProject 
 #### Recruitment Library Project
+
+> Celem aplikacji jest deserializacja pliku JSON, posiadającego listę książek oraz korzystanie z obiektu i dostarczanie informacji na jego temat.
 
 > Aplikacja korzysta z integrenowanego tomcata odpalanego ze spring boota.
 
